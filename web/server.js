@@ -9,14 +9,19 @@ import { createClient } from 'redis';
 // Port that Express will listen on.
 const SERVER_PORT = process.env.SERVER_PORT ?? 5000;
 
-// Specify Redis connection parameters.
+// Specify Redis connection parameters and create a client instance.
 const client = createClient({
   url: process.env.REDIS_URL ?? 'redis://default:@localhost:6379/'
 });
 
+// Duplicate the client instance to use for a subscriber.
+const subscriberClient = client.duplicate();
 
 // Redis key name that we will store our counter in.
 const COUNTER_KEY_NAME = 'mycounter';
+
+// Redis Pub/Sub channel to subscribe to.
+const REDIS_PUB_SUB_CHANNEL_NAME = `__keyspace@0__:${COUNTER_KEY_NAME}`;
 
 // Initialize Express.
 const app = express();
@@ -49,10 +54,29 @@ app.get('/', async (req, res) => {
   return res.render('homepage', { count });
 });
 
-// Connect to Redis.
+// Connect to Redis with both connections.
 await client.connect();
+await subscriberClient.connect();
 
 // Start the Express server.
 app.listen(SERVER_PORT, () => {
   console.log(`Server listening on port ${SERVER_PORT}.`);
+});
+
+// Subscribe to the Pub/Sub channel in Redis.
+await subscriberClient.subscribe(REDIS_PUB_SUB_CHANNEL_NAME, async (message) => {
+  // message will be 'incrby' or 'del'.
+  switch(message) {
+    case 'incrby':
+      console.log('incrby message received...');
+      const newCounterValue = parseInt(await client.get(COUNTER_KEY_NAME));
+      console.log(`Counter should now be showing ${newCounterValue}.`);
+      break;
+    case 'del':
+      console.log('del message received...');
+      console.log('Counter should now be showing 0.');
+      break;
+    default:
+      console.log(`Recevied unknown pub/sub message "${message}" - ignored!`);
+  }
 });
