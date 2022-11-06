@@ -1,7 +1,7 @@
 {
-  "name": "gitpod-express-redis",
+  "name": "redis-counter-web",
   "version": "0.0.1",
-  "description": "Express Quick Start for Redis on Gitpod",
+  "description": "Redis Counter Example: web interface",
   "main": "server.js",
   "scripts": {
     "dev": "nodemon server.js",
@@ -9,19 +9,19 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/redis-developer/gitpod-express-redis.git"
+    "url": "git+https://github.com/simonprickett/redis-counter.git"
   },
   "keywords": [
     "redis",
     "express"
   ],
-  "author": "Redis Developer",
+  "author": "Simon Prickett",
   "license": "MIT",
   "type": "module",
   "bugs": {
-    "url": "https://github.com/redis-developer/gitpod-express-redis/issues"
+    "url": "https://github.com/simonprickett/redis-counter/issues"
   },
-  "homepage": "https://github.com/redis-developer/gitpod-express-redis#readme",
+  "homepage": "https://github.com/simonprickett/redis-counter#readme",
   "dependencies": {
     "dotenv": "^16.0.3",
     "ejs": "^3.1.6",
