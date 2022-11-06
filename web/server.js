@@ -6,10 +6,14 @@ import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { createClient } from 'redis';
 
+// Port that Express will listen on.
+const SERVER_PORT = process.env.SERVER_PORT ?? 5000;
+
 // Specify Redis connection parameters.
 const client = createClient({
   url: process.env.REDIS_URL ?? 'redis://default:@localhost:6379/'
 });
+
 
 // Redis key name that we will store our counter in.
 const COUNTER_KEY_NAME = 'mycounter';
@@ -49,6 +53,6 @@ app.get('/', async (req, res) => {
 await client.connect();
 
 // Start the Express server.
-app.listen(5000, () => {
-  console.log('Server listening on port 5000.');
+app.listen(SERVER_PORT, () => {
+  console.log(`Server listening on port ${SERVER_PORT}.`);
 });
