@@ -23,6 +23,9 @@ const COUNTER_KEY_NAME = 'mycounter';
 // Redis Pub/Sub channel to subscribe to.
 const REDIS_PUB_SUB_CHANNEL_NAME = `__keyspace@0__:${COUNTER_KEY_NAME}`;
 
+// Track subscribers to the server sent events.
+const eventSubscribers = {};
+
 // Initialize Express.
 const app = express();
 app.set('views', new URL('./views', import.meta.url).pathname);
@@ -33,14 +36,35 @@ app.get('/incr', async (req, res) => {
   // Atomically add one to the counter in Redis.
   // If they key doesn't exist, Redis will create it with
   // an initial value of 1.
-  const count = await client.incrBy(COUNTER_KEY_NAME, 1);
-  return res.json({ count });
+  await client.incrBy(COUNTER_KEY_NAME, 1);
+
+  return res.status(200).send('OK');
 });
 
 app.get('/reset', async (req, res) => {
   // Reset by just deleting the key from Redis.
   await client.del(COUNTER_KEY_NAME);
-  return res.json({ count: 0 });
+  return res.status(200).send('OK');
+});
+
+app.get('/count', async (req, res) => {
+  res.setHeader('Cache-Control', 'no-cache');
+  res.setHeader('Content-Type', 'text/event-stream');
+  res.setHeader('Connection', 'keep-alive');
+  res.flushHeaders();
+  res.write('retry: 10000\n\n');
+
+  // Add this connection to the map of ones that get updated
+  // when there is a new Pub/Sub message.
+  const sseSubscriberKey = Date.now();
+  eventSubscribers[sseSubscriberKey] = res;
+
+  res.on('close', function() {
+    // Remove this connection from the map of ones that get 
+    // updated when there is a new Pub/Sub message.
+    res.end();
+    delete(eventSubscribers[sseSubscriberKey]);
+  });
 });
 
 // Serve the home page, initialize the counter if needed.
@@ -66,17 +90,22 @@ app.listen(SERVER_PORT, () => {
 // Subscribe to the Pub/Sub channel in Redis.
 await subscriberClient.subscribe(REDIS_PUB_SUB_CHANNEL_NAME, async (message) => {
   // message will be 'incrby' or 'del'.
-  switch(message) {
-    case 'incrby':
-      console.log('incrby message received...');
-      const newCounterValue = parseInt(await client.get(COUNTER_KEY_NAME));
-      console.log(`Counter should now be showing ${newCounterValue}.`);
-      break;
+  console.log(`Received Pub/Sub message "${message}".`);
+
+  let newCounterValue = 0;
+
+  switch(message) {    
     case 'del':
-      console.log('del message received...');
       console.log('Counter should now be showing 0.');
       break;
+    // This covers bad message type, plus expected 'incrby'.
     default:
-      console.log(`Recevied unknown pub/sub message "${message}" - ignored!`);
+      newCounterValue = parseInt(await client.get(COUNTER_KEY_NAME));
+      console.log(`Counter should now be showing ${newCounterValue}.`);
+  }
+
+  // Push out a server sent event to each event subscriber...
+  for (const sseSubscriber in eventSubscribers) {
+    eventSubscribers[sseSubscriber].write(`event: count\ndata:${newCounterValue}\n\n\n`);
   }
 });

@@ -2,20 +2,18 @@
 window.onload = function () {
   const incrBtn = document.getElementById('incrBtn');
   const resetBtn = document.getElementById('resetBtn');
+  const counterEvents = new EventSource('/count');
+  const counterElem = document.getElementById('counterValue');
 
-  // Get the new value of the counter from the backend...
-  const updateCountValue = async function (relativePath) {
-    const response = await fetch(relativePath);
-    const responseJSON = await response.json();
-    const counterElem = document.getElementById('counterValue');
-    counterElem.innerText = responseJSON.count;
-  };
+  counterEvents.addEventListener('count', (e) => {
+    counterElem.innerText = e.data;
+  });
 
   incrBtn.onclick = async function () {
-    await updateCountValue('/incr');
+    await fetch('/incr');
   };
 
   resetBtn.onclick = async function () {
-    await updateCountValue('/reset');
+    await fetch('/reset');
   }
 }
