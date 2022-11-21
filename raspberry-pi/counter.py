@@ -24,7 +24,7 @@ def incr_count():
     count += 1
     tm.number(count)
 
-button_reset.when_held= reset_count
+button_reset.when_held = reset_count
 button_count.when_held = incr_count
 
 pause()
