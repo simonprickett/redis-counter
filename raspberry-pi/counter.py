@@ -19,8 +19,6 @@ button_reset = Button(11, hold_time=2)
 COUNTER_KEY_NAME = "mycounter"
 REDIS_PUB_SUB_CHANNEL_NAME = f"__keyspace@0__:${COUNTER_KEY_NAME}"
 
-#tm.number(count)
-
 def reset_count():
     print("Resetting...")
     redis_client.delete(COUNTER_KEY_NAME)
