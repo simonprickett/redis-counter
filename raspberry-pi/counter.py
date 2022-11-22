@@ -31,4 +31,12 @@ def incr_count():
 button_reset.when_held = reset_count
 button_count.when_held = incr_count
 
+count = redis_client.get(COUNTER_KEY_NAME)
+
+if count is None:
+    count = 0
+
+print(f"Initial count value is {count}")
+tm.number(int(count))
+
 pause()
