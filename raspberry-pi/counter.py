@@ -1,7 +1,14 @@
+import os
 import tm1637
+import redis
 from time import sleep
 from gpiozero import Button
 from signal import pause
+from dotenv import load_dotenv
+
+load_dotenv()
+
+redis_client = redis.Redis.from_url(os.getenv("REDIS_URL"))
 
 tm = tm1637.TM1637(clk=23, dio=24)
 tm.brightness(0)
