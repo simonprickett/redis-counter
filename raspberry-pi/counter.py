@@ -27,7 +27,6 @@ def reset_count():
 def incr_count():
     print("Incrementing...")
     redis_client.incrby(COUNTER_KEY_NAME, amount=1)
-    #tm.number(count)
 
 button_reset.when_held = reset_count
 button_count.when_held = incr_count
