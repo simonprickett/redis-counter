@@ -1,6 +1,9 @@
 # Redis Counter Project
 
-Counting with Redis, a Raspberry Pi with TM1637 7 segment display and a web interface.  Code in Python and Node.js.
+Counting with Redis, a Raspberry Pi with TM1637 7 segment display and a web interface.  Code in Python and Node.js.  
+
+![Screenshot of the completed project](redis_counter_pi_project.png)
+
 
 This project was created as part of my [Things on Thursdays](https://simonprickett.dev/things-on-thursdays-livestreams/) IoT livestreaming series for Redis.  Check out the videos for this project below:
 
