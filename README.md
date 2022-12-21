@@ -42,6 +42,8 @@ This is optional, and free, but worth using if you want to see what's happening 
 
 ## Software Setup
 
+Once you have built the hardware and got your Redis host, port and password it's time to setup the software that we'll use to display and update the counter.
+
 ### For the Web Interface
 
 Follow the instructions in the [`web/README.md`](web/README.md) file.
