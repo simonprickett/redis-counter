@@ -20,8 +20,8 @@ If you want to build one of these, you'll need to have/buy the following items (
 * A decent power supply as this will have to power the Pi and the LEDs.  You'll want a [USB C](https://www.raspberrypi.com/products/type-c-power-supply/) one if using a Raspberry Pi 4, or a [micro USB version](https://www.raspberrypi.com/products/micro-usb-power-supply/) for all other Pi models.  Make sure to get one with the right wall plug for your country!
 * A [Micro SD card](https://www.mymemory.co.uk/memory/memory-cards/micro-sd.html) (8gb should do, larger won't hurt).  You may need a micro SD to regular SD card adapter to connect the card to your laptop/desktop machine to write the Pi OS image to it.  Many micro SD cards come with this adapter.
 * Optional: A case for the Raspberry Pi that still lets you access the GPIO ports.  I use this one in smoke grey from Adafruit: ([case for Pi 3](https://www.adafruit.com/product/2256) but there are lots of other options (check out [this one for the Pi 4](https://shop.pimoroni.com/products/pibow-coupe-4?variant=29210100170835) from Pimoroni for example).  You don't strictly need one of these, but it keeps things tidy and helps protect the Pi from accidental damage.
-* TODO The 7 segment display
-* TODO The arcade button
+* A 4 digit TM1637 7 segment display.  There's many variations of these, so take a look at eBay.  Just make sure to get 4 digits, and pick a colour that appeals to you.  You don't need one that can be chained to others, so the ones with one set of connectors are fine.  Find a display with this [eBay search](https://www.ebay.co.uk/sch/i.html?_nkw=tm1637). 
+* One [green](https://thepihut.com/products/official-sanwa-arcade-button-long-life?variant=31934166270014) and one [red](https://thepihut.com/products/official-sanwa-arcade-button-long-life?variant=31934166368318) arcade button.  Anything similar to the ones linked will do, get bigger or smaller ones according to your own preference.
 * TODO wiring
 
 ## Raspberry Pi / 7 Segment Display / Arcade Button Setup
