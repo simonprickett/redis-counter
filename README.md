@@ -22,7 +22,15 @@ TODO
 
 ## Redis Setup
 
-TODO
+The fastest way to get started is to create yourself [a Redis database in the cloud](https://redis.com/try-free/).  Once you've signed up and created a database, make a note of the host, port, and password... you'll need these later.
+
+Use the free tier, you don't need to add a payment method.
+
+## Optional: RedisInsight
+
+This is optional, and free, but worth using if you want to see what's happening in your Redis database:
+
+[Download a copy of RedisInsight](https://redis.com/redis-enterprise/redis-insight/) - once you've installed RedisInsight use the host, port and password for your Redis database to connect.
 
 ## Software Setup
 
