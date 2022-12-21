@@ -22,9 +22,19 @@ If you want to build one of these, you'll need to have/buy the following items (
 * Optional: A case for the Raspberry Pi that still lets you access the GPIO ports.  I use this one in smoke grey from Adafruit: ([case for Pi 3](https://www.adafruit.com/product/2256) but there are lots of other options (check out [this one for the Pi 4](https://shop.pimoroni.com/products/pibow-coupe-4?variant=29210100170835) from Pimoroni for example).  You don't strictly need one of these, but it keeps things tidy and helps protect the Pi from accidental damage.
 * A 4 digit TM1637 7 segment display.  There's many variations of these, so take a look at eBay.  Just make sure to get 4 digits, and pick a colour that appeals to you.  You don't need one that can be chained to others, so the ones with one set of connectors are fine.  Find a display with this [eBay search](https://www.ebay.co.uk/sch/i.html?_nkw=tm1637). 
 * One [green](https://thepihut.com/products/official-sanwa-arcade-button-long-life?variant=31934166270014) and one [red](https://thepihut.com/products/official-sanwa-arcade-button-long-life?variant=31934166368318) arcade button.  Anything similar to the ones linked will do, get bigger or smaller ones according to your own preference.
-* TODO wiring
+* 8 [female to female jumper wires](https://shop.pimoroni.com/products/jumper-jerky?variant=348491271) (4 to connect the TM1637 and 2 for each of the arcade buttons).  Having a few different colours helps with identifying the wires when connecting things up, but isn't strictly necessary.  The link is for a pack of 40, so you only need to buy the one pack.
 
-## Raspberry Pi / 7 Segment Display / Arcade Button Setup
+## Raspberry Pi / 7 Segment Display / Arcade Buttons Setup
+
+### Raspberry Pi Setup
+
+TODO
+
+### Attaching the TM1637
+
+TODO
+
+### Attaching the Arcade Buttons
 
 TODO
 
